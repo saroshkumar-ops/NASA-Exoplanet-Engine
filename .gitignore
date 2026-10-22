@@ -1,0 +1,28 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Pytest / Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Environments
+venv/
+.env
+env/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data cache (keep processed or sample if needed, ignore large raw temporary files)
+data/exoplanets_raw.parquet
+data/exoplanets_raw.csv
+
+# OS metadata
+.DS_Store
+Thumbs.db
