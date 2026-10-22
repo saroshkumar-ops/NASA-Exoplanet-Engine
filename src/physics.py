@@ -218,6 +218,40 @@ def calculate_esi(
     return esi_global, esi_interior, esi_surface
 
 
+def explain_esi_breakdown(
+    radius: float,
+    density: float,
+    vesc: float,
+    temperature: float
+) -> Dict[str, float]:
+    """
+    Generate an explainable component-by-component breakdown of Earth Similarity Index (ESI).
+    Useful for diagnostic dashboards and scientific candidate evaluation.
+    """
+    def _param_comp(x, x0, w):
+        diff = abs(x - x0) / (x + x0)
+        return float((1.0 - diff) ** w)
+
+    comp_r = _param_comp(radius, ESI_WEIGHTS["radius"]["x0"], ESI_WEIGHTS["radius"]["w"])
+    comp_rho = _param_comp(density, ESI_WEIGHTS["density"]["x0"], ESI_WEIGHTS["density"]["w"])
+    comp_v = _param_comp(vesc, ESI_WEIGHTS["vesc"]["x0"], ESI_WEIGHTS["vesc"]["w"])
+    comp_t = _param_comp(temperature, ESI_WEIGHTS["temperature"]["x0"], ESI_WEIGHTS["temperature"]["w"])
+    
+    esi_int = (comp_r * comp_rho) ** (1.0 / 2.0)
+    esi_surf = (comp_v * comp_t) ** (1.0 / 2.0)
+    esi_glob = (esi_int * esi_surf) ** 0.5
+
+    return {
+        "radius_similarity": round(comp_r, 4),
+        "density_similarity": round(comp_rho, 4),
+        "interior_esi": round(esi_int, 4),
+        "escape_velocity_similarity": round(comp_v, 4),
+        "temperature_similarity": round(comp_t, 4),
+        "surface_esi": round(esi_surf, 4),
+        "global_esi": round(esi_glob, 4),
+    }
+
+
 def classify_planet_regime(radius: Union[float, np.ndarray]) -> Union[str, np.ndarray]:
     """
     Classify exoplanet based on established radius thresholds (Rogers 2015, Fulton et al. 2017):

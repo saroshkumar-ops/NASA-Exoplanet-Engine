@@ -59,3 +59,12 @@ def test_vectorized_computations():
     assert regimes[2] == "Super-Earth"
     assert regimes[3] == "Sub-Neptune"
     assert regimes[4] == "Jovian / Gas Giant"
+
+def test_explain_esi_breakdown():
+    """Verify explainability breakdown produces all components for Earth."""
+    from src.physics import explain_esi_breakdown
+    breakdown = explain_esi_breakdown(1.0, EARTH_DENSITY_G_CM3, 1.0, EARTH_TSURF_K)
+    assert breakdown["global_esi"] == 1.0
+    assert breakdown["interior_esi"] == 1.0
+    assert breakdown["surface_esi"] == 1.0
+    assert "temperature_similarity" in breakdown
