@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nasa-exoplanet-engine"
+version = "1.0.0"
+authors = [
+    { name = "Sarosh Kumar" }
+]
+description = "A Production-Grade Astrobiology & Machine Learning Engine for Exoplanet Habitability and Characterization using NASA Archive Data"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "pandas>=2.2.0",
+    "numpy>=1.26.0",
+    "scipy>=1.12.0",
+    "scikit-learn>=1.4.0",
+    "plotly>=5.19.0",
+    "streamlit>=1.32.0",
+    "pyarrow>=15.0.0",
+    "requests>=2.31.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
