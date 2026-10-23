@@ -19,9 +19,10 @@ ENV/
 # Jupyter
 .ipynb_checkpoints/
 
-# Data cache (keep processed or sample if needed, ignore large raw temporary files)
-data/exoplanets_raw.parquet
-data/exoplanets_raw.csv
+# Data cache (keep directory structure, ignore data files)
+data/*.parquet
+data/*.csv
+!data/.gitkeep
 
 # OS metadata
 .DS_Store
